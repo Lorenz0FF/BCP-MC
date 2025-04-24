@@ -199,10 +199,6 @@ const refreshMojangStatuses = async function(){
     for(let i=0; i<statuses.length; i++){
         const service = statuses[i]
 
-        const tooltipHTML = `<div class="mojangStatusContainer">
-            <span class="mojangStatusIcon" style="color: ${MojangRestAPI.statusToHex(service.status)};">&#8226;</span>
-            <span class="mojangStatusName">${service.name}</span>
-        </div>`
         if(service.essential){
             tooltipEssentialHTML += tooltipHTML
         } else {
@@ -229,10 +225,6 @@ const refreshMojangStatuses = async function(){
             status = 'green'
         }
     }
-    
-    document.getElementById('mojangStatusEssentialContainer').innerHTML = tooltipEssentialHTML
-    document.getElementById('mojangStatusNonEssentialContainer').innerHTML = tooltipNonEssentialHTML
-    document.getElementById('mojang_status_icon').style.color = MojangRestAPI.statusToHex(status)
 }
 
 const refreshServerStatus = async (fade = false) => {
@@ -265,14 +257,6 @@ const refreshServerStatus = async (fade = false) => {
     }
     
 }
-
-refreshMojangStatuses()
-// Server Status is refreshed in uibinder.js on distributionIndexDone.
-
-// Refresh statuses every hour. The status page itself refreshes every day so...
-let mojangStatusListener = setInterval(() => refreshMojangStatuses(true), 60*60*1000)
-// Set refresh rate to once every 5 minutes.
-let serverStatusListener = setInterval(() => refreshServerStatus(true), 300000)
 
 /**
  * Shows an error overlay, toggles off the launch area.
